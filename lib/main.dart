@@ -1,3 +1,6 @@
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -193,7 +196,18 @@ class CanceledView extends StatelessWidget {
 }
 
 class EventDetialsView extends StatelessWidget {
-  const EventDetialsView({Key? key}) : super(key: key);
+   EventDetialsView({Key? key}) : super(key: key);
+
+ final List<String> _image = [
+    Images.image1,
+    Images.image2,
+    Images.image3,
+    Images.image4,
+    Images.image5,
+    Images.image6,
+    Images.image7,
+    Images.image8
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -201,33 +215,119 @@ class EventDetialsView extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Image.asset(
-            Images.image1,
-            width: size.width,
-            height: size.height /2,
-            fit: BoxFit.cover,
+          Column(
+            children: [
+              ClipRRect(
+                borderRadius:
+                    BorderRadius.vertical(bottom: Radius.circular(45)),
+                child: Image.asset(
+                  _image[Random().nextInt(_image.length)],
+                  width: size.width,
+                  height: size.height / 1.3,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Container(
+                width: 50,
+                height: 7,
+                margin: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    color: accentColor,
+                    borderRadius: BorderRadius.circular(45)),
+              ),
+              SizedBox(
+                width: size.width,
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 25,
+                        height: 25,
+                        margin: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 2, color: accentColor.withOpacity(.3)),
+                            borderRadius: BorderRadius.circular(45)),
+                      ),
+                      Text(
+                        'Design system',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(color: Colors.white),
+                      ),
+                      Spacer(),
+                      CircleAvatar(
+                        backgroundColor: accentColor.withOpacity(.3),
+                        child: Icon(
+                          Icons.person,
+                          color: Colors.white,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.white,
+                    radius: 4,
+                  ),
+                  SizedBox(
+                    width: 6,
+                  ),
+                  CircleAvatar(
+                    backgroundColor: accentColor,
+                    radius: 2,
+                  ),
+                  SizedBox(
+                    width: 6,
+                  ),
+                  CircleAvatar(
+                    backgroundColor: accentColor,
+                    radius: 2,
+                  ),
+                  SizedBox(
+                    width: 6,
+                  ),
+                  CircleAvatar(
+                    backgroundColor: accentColor,
+                    radius: 1,
+                  )
+                ],
+              )
+            ],
           ),
           Padding(
             padding: const EdgeInsets.all(24.0),
             child: Column(
               children: [
-                SizedBox(height: kToolbarHeight,),
+                SizedBox(
+                  height: kToolbarHeight,
+                ),
                 Row(
                   children: [
-                    Container(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          Icons.keyboard_arrow_left_outlined,
-                          color: Colors.white,
+                    GestureDetector(
+                      onTap: ()=> Navigator.pop(context),
+                      child: Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.keyboard_arrow_left_outlined,
+                            color: Colors.white,
+                          ),
                         ),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white30, width: 4),
+                            borderRadius: BorderRadius.circular(45)),
                       ),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white30, width: 4),
-                          borderRadius: BorderRadius.circular(45)),
                     ),
                     Spacer(),
-                     Container(
+                    Container(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Icon(
@@ -239,11 +339,14 @@ class EventDetialsView extends StatelessWidget {
                           border: Border.all(color: Colors.white30, width: 4),
                           borderRadius: BorderRadius.circular(45)),
                     ),
-                     Container(
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Container(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Icon(
-                          Icons.more_horiz,
+                          Icons.more_vert,
                           color: Colors.white,
                         ),
                       ),
@@ -256,6 +359,66 @@ class EventDetialsView extends StatelessWidget {
               ],
             ),
           ),
+
+          Positioned(
+            top: size.height / 1.5,
+            left: 0,
+            right: 0,
+            child: Center(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+                  child: Container(
+                width: 250,
+                    height: 60.0,
+                    padding: EdgeInsets.all(10),
+                    decoration:
+                        BoxDecoration(color: Colors.white10.withOpacity(.2),borderRadius: BorderRadius.circular(15)),
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                          Icon(
+                              Ionicons.md_videocam,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 6,
+                            ),
+                              Icon(
+                              FontAwesome.microphone,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 6,
+                            ),
+                            Icon(
+                              CupertinoIcons.person_2_fill,
+                              color: Colors.white,
+                            ),
+                             SizedBox(
+                              width: 6,
+                            ),
+                            Transform.rotate(
+                              angle: pi/2,
+                              child: Icon(
+                                Icons.call,
+                                color: Colors.red,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
